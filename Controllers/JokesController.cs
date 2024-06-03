@@ -149,6 +149,18 @@ namespace JokesWebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: Jokes/ShowSearchForm
+        public async Task<IActionResult> ShowSearchForm()
+        {
+            return View();
+        }
+
+        // GET: Jokes/ShowSerchResults
+        public async Task<IActionResult> ShowSerchResults(String SearchPhrase)
+        {
+            return View("Index", await _context.Joke.Where((j) => j.question.Contains(SearchPhrase)).ToListAsync());
+        }
+
         private bool JokeExists(int id)
         {
             return _context.Joke.Any(e => e.id == id);
